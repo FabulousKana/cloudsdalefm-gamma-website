@@ -1,0 +1,23 @@
+{
+    "sql": {
+        "host": "localhost",
+        "username": "",
+        "password": "",
+        "database": ""
+    },
+    "lang": {
+        "mysql_cant_connect_error": "An error occured while trying to connect to our database. Try again later.",
+        "mysql_connected_success": "Connection to MySQL server successfully established.",
+        "mysql_sending": "Sending data to database from ",
+
+        "verifyc_success": "Account exists and password is cool and good.",
+        "verifyc_wrongcredentials": "Account exists, but password is not cool and good >:C",
+        "verifyc_noaccfound": "Account does not exist",
+
+        "register_username_in_use": "I'm sorry, but your username is already in use.",
+        "register_password_wrong_length": "Security of our users account is important to us. Please set up password longer than 12 characters and less than 128.",
+        "register_wrong_email": "Your e-mail address is wrong.",
+        "register_username_wrong_length": "Your username should be longer than 4 characters and shorter than 24.",
+        "register_success": "Your account has been registered successfully!"
+    }
+}
