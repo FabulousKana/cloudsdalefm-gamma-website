@@ -1,0 +1,79 @@
+#player {
+    background: red;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-start;
+    width: 400px;
+    height: 100px;
+    color: #658493;
+    font-family: 'Fira Sans Extra Condensed', sans-serif;
+}
+
+.CDFM.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.CDFM.pointer {
+    cursor: pointer;
+}
+
+.CDFM.buttonBG {
+    background: #1c2944;
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    height: 100%;
+    width: 30%;
+}
+
+.CDFM.button {
+    width: 60%;
+    max-height: 70%;
+}
+
+.CDFM.rightSide {
+    background: #0b101c;
+    order: 0;
+    flex: 1 1 auto;
+    align-self: auto;
+    height: 100%;
+}
+
+.CDFM.title, .CDFM.slider {
+    padding: 0 20px;
+    height: 50%;
+}
+
+.CDFM.title > span {
+    padding-top: 10px;
+}
+
+.CDFM.sliderInner {
+    width: 100%;
+    height: 58%;
+    padding-bottom: 10px;
+}
+
+.CDFM.speaker {
+    height: 90%;
+    flex: 0 0 auto;
+}
+
+.CDFM.sliderOuter {
+    background: #15272f;
+    height: 55%;    
+    width: 85%;
+    margin-left: 5px;
+    overflow: hidden;
+}
+
+.CDFM.sliderValue {
+    height: 100%;
+    width: 100%;
+    background: #567997;
+    pointer-events: none;
+}

@@ -4,7 +4,7 @@
         <meta charset="utf-8"/>
         <meta name="author" content="CloudsdaleFM Developers"/>
         <title>CloudsdaleFM Gamma - Najlepsze kucykowe hity każdego dnia!</title>
-        <meta property="og:title" content="Słuchaj radia CloudsdaleFM!"/>
+        <meta property="og:title" content="Logowanie się do CloudsdaleFM"/>
         <meta property="og:site_name" content="CloudsdaleFM Gamma - Najlepsze kucykowe hity każdego dnia!"/>
         <meta name="description" content="Największe i najbardziej kucykowe radio w Polsce. Słuchaj już teraz w przeglądarce całkowicie za darmo i bez reklam najgorętszych hitów kucykowego fandomu!"/>
         <meta property="og:description" content="Największe i najbardziej kucykowe radio w Polsce. Słuchaj już teraz w przeglądarce całkowicie za darmo i bez reklam najgorętszych hitów kucykowego fandomu!"/>
@@ -39,15 +39,23 @@
         <div id="sky">
             <div class="skyhalf">
                 <div id="leftcontent">
-                    <div id="player"></div>
-                    <span class="player-info">
-                        Chcesz słuchać we własnym odtwarzaczu?
-                        <a href="download/cloudsdalefm.m3u">Pobierz m3u!</a><br/>
-                        <a href="https://twitter.com/cloudsdalefm" target="_blank"><img src="img/social/twitter.png" alt="Twitter"/></a>
-                        <a href="https://www.facebook.com/cloudsdaleFM.net/" target="_blank"><img src="img/social/facebook.png" alt="Facebook"/></a>
-                        <a href="https://www.youtube.com/channel/UCkCVf7cZ44QUyln8pqKLGwg" target="_blank"><img src="img/social/youtube.png" alt="YouTube"/></a>
-                        <a href="https://discord.gg/cCa4xBk" target="_blank"><img src="img/social/discord.png" alt="Discord"/></a>
-                    </span>
+                    <div id="loginbox">
+                        <?php
+                            if( $_POST["username"] && $_POST["password"] ) {
+                                if( $_GET["goto"] ) {
+                                    echo $acc->log_in($_POST["username"], $_POST["password"], $_GET["goto"]);
+                                } else {
+                                    echo $acc->log_in($_POST["username"], $_POST["password"]);
+                                }
+                            }
+                        ?>
+                        <form action="login?goto=<?php echo $_GET["goto"];?>" method="post">
+                            <input type="text" name="username" placeholder="Nazwa użytkownika"/>
+                            <input type="password" name="password" placeholder="Hasło"/>
+                            <input type="submit" value="Zaloguj"/>
+                        </form>
+                        <p>Nie posiadasz konta? <a href="register">Zarejestruj się</a>!</p>
+                    </div>
                 </div>
             </div>
         </div>

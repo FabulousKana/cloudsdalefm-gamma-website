@@ -1,23 +1,38 @@
 {
+
+    "timezone": "Europe/Warsaw",
+
     "sql": {
         "host": "localhost",
         "username": "",
         "password": "",
         "database": ""
     },
+
     "lang": {
-        "mysql_cant_connect_error": "An error occured while trying to connect to our database. Try again later.",
-        "mysql_connected_success": "Connection to MySQL server successfully established.",
-        "mysql_sending": "Sending data to database from ",
+        "mysql_cant_connect_error": "Wystąpił poważny błąd podczas łączenia się z naszą bazą danych. Prosimy spróbować później.",
+        "mysql_connected_success": "Połączenie do bazy danych przebiegło pomyślnie.",
+        "mysql_sending": "Wysyłanie danych do bazy danych z adresu IP ",
 
-        "verifyc_success": "Account exists and password is cool and good.",
-        "verifyc_wrongcredentials": "Account exists, but password is not cool and good >:C",
-        "verifyc_noaccfound": "Account does not exist",
+        "verifyc_success": "Weryfikacja danych logowania przebiegła pomyślnie.",
+        "verifyc_wrongcredentials": "Konto istnieje, jednak hasło jest nie poprawne.",
+        "verifyc_noaccfound": "Konto nie istnieje",
 
-        "register_username_in_use": "I'm sorry, but your username is already in use.",
-        "register_password_wrong_length": "Security of our users account is important to us. Please set up password longer than 12 characters and less than 128.",
-        "register_wrong_email": "Your e-mail address is wrong.",
-        "register_username_wrong_length": "Your username should be longer than 4 characters and shorter than 24.",
-        "register_success": "Your account has been registered successfully!"
+        "register_username_in_use": "Przykro nam, ta nazwa użytkownika jest już przez kogoś używana.",
+        "register_password_wrong_length": "Bezpieczeństwo naszych użytkowników jest dla nas bardzo ważne. Prosimy skorzystać z hasła dłuższego niż 12 znaków oraz krótszego niż 128.",
+        "register_wrong_email": "Adres E-Mail jest niepoprawny.",
+        "register_username_wrong_length": "Nazwa użytkownika nie powinna być dłuższa niż 4 znaki i nie powinna być krótsza niż 24.",
+        "register_success": "Zarejestrowano pomyślnie!",
+        "register_email_subject": "CloudsdaleFM Gamma - Rejestracja konta uzytkownika",
+        "register_email_message": "Dziękujemy za rejestrację i dołączenie do naszej społeczności. Od czasu aktywacji konta masz dostęp do wszystkich funkcji użytkownika. Aby je aktywować kliknij w link: ",
+
+        "login_wrong_password": "Nazwa użytkownika i/oraz hasło nie zgadzają się.",
+        "login_already_logged_in": "Użytkownik już zalogowany. Prosimy się najpierw wylogować.",
+        "login_banned": "Twoje konto jest zablokowane.<br/>Jeżeli uważasz, że to pomyłka skontaktuj się z nami<br/>admins@cloudsdalefm.net",
+        "login_account_not_active": "Twoje konto nie jest aktywne.<br/>Kliknij w link, który wysłaliśmy Tobie na adres,<br/>który został przez ciebie podany.",
+
+        "cdfm_member": "Członek CloudsdaleFM"
+
     }
+
 }

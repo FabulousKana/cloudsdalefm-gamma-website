@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:400,500');
 
 
+/* ------------- Global ------------- */
 
 * { /* To hack some browser defaults */
     margin: 0;
@@ -22,12 +23,26 @@ p {
     color: var(--text-color);
 }
 
+#legal {
+    position: relative;
+    max-width: 350px;
+    background: #1c2944;
+    text-align: right;
+    float: right;
+    font-size: 0.9em;
+    padding: 4px;
+    margin-right: 3px;
+    color: var(--text-color);
+    clear: both;
+}
+
 
 #navbar {
     background: #1c2944;
     width: 100%;
     position: relative;
     height: 70px;
+    color: white;
     /*line-height: 70px;*/
     display: flex;
     vertical-align: middle;
@@ -79,14 +94,53 @@ a:hover {
 #navbar #user-area {
     position: absolute;
     height: 100%;
-    min-width: 300px;
+    min-width: 350px;
     text-align: right;
     right: 0;
     line-height: 70px;
     margin-right: 15px;
+    display: inline-block;
 }
 
+#navbar #user-area img.ismember {
+    width: 12px;
+    height: auto;
+    margin-left: 4px;
+    margin-right: 4px;
+}
 
+#navbar #user-area img.avatar {
+    width: 40px;
+    height: auto;
+    border-radius: 50%;
+    filter: brightness(100%);
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+#legal {
+    position: relative;
+    max-width: 350px;
+    background: #1c2944;
+    text-align: right;
+    float: right;
+    font-size: 0.9em;
+    padding: 4px;
+    margin-right: 3px;
+    color: var(--text-color);
+    clear: both;
+}
+
+#partners img {
+    opacity: 0.5;
+    margin: 4px;
+    transition: ease-in-out 0.3s;
+}
+#partners img:hover {
+    opacity: 1;
+}
+
+/* -------------- Listen -------------- */
 
 #sky {
     clear: both;
@@ -99,7 +153,7 @@ a:hover {
     display: inline-block;
 }
 
-#sky #sky-left {
+#sky .skyhalf {
     position: relative;
     height: 100%;
     width: 50%;
@@ -125,15 +179,64 @@ a:hover {
     filter: contrast(50%);
 }
 
-#legal {
-    position: relative;
-    max-width: 350px;
-    background: #1c2944;
-    text-align: right;
-    float: right;
-    font-size: 0.9em;
-    padding: 4px;
-    margin-right: 3px;
+
+
+/* -------------- Donate ------------- */
+
+#donatesite {
+    position: absolute;
+    background: url('../img/bg1.png');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#donatebox {
+    width: 40%;
+    min-width: 350px;
+    height: auto;
     color: var(--text-color);
-    clear: both;
+    background: #0b101c;
+    padding: 7px;
+    border-radius: 3px;
+}
+
+#donatebox img {
+    min-width: 200px;
+    max-width: 250px;
+    width: auto;
+    height: auto;
+}
+
+/* --------------- Login -------------- */
+
+#sky .skyhalf input {
+    padding: 8px;
+    color: var(--text-color);
+    background: #0b101c;
+    border: 0;
+}
+#sky .skyhalf input[type=submit] {
+    background: #1c2944;
+    cursor: pointer;
+}
+#sky .skyhalf input:hover {
+    filter: brightness(150%);
+}
+
+/* -------------- Settings -------------- */
+
+#sky .skyhalf #accountsettings {
+    background: #0b101c;
+    color: white;
+    padding: 16px;
+}
+
+#sky .skyhalf #accountsettings img.avatar {
+    max-width: 300px;
+    height: auto;
+    border-radius: 50%;
 }

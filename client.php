@@ -4,17 +4,6 @@
     // gamma.cloudsdalefm.net
 
     header("Content-Type: text/html; charset=utf-8");
-    $client_version = "1.0";
-
-    // Just.. uhh.. yeah..
-    if( substr($_SERVER["REQUEST_URI"], -10) == "client.php" ) {
-        echo "
-            <style type='text/css'>body { background: #111; color: white; text-align: center; }</style>
-            <h2>Beep! This is client.php. I'm a backend thingy.<br/>
-            You're using me almost all the time on normal pages.<br/>
-            But here I am useless!!11 ; _ ;</h2>
-        ";
-    }
 
 
     function save_to_log_file($text) {
@@ -31,11 +20,11 @@
         // Account management
         public function init() {
             // Starts a session and sets some useful variables
-            date_default_timezone_set("Europe/Warsaw");
             $this->host = $_SERVER["HTTP_HOST"];
             $config = json_decode(file_get_contents("private/config.json", 1), 1);
             $this->sql = $config["sql"]; 
             $this->lang = $config["lang"];
+            date_default_timezone_set($config["timezone"]);
             session_start();
         }
 
@@ -45,8 +34,7 @@
             $sql = mysqli_connect($this->sql["host"], $this->sql["username"], $this->sql["password"], $this->sql["database"]);
             if( !$sql ) {
                 save_to_log_file("(MySQL Error) " . mysqli_connect_errno());
-                echo "<b>".$this->lang["mysql_cant_connect_error"]."</b>";
-                return;
+                throw new Exception($this->lang["mysql_cant_connect_error"]);
             } else {
                 save_to_log_file($this->lang["mysql_connected_success"]);
             }
@@ -104,6 +92,10 @@
             return 0;
         }
 
+        public function generate_token($username) {
+            return md5(uniqid($username, true));
+        }
+
         public function register($username, $password, $email) {
             // Checks if everything is cool and good
             // and creates an account
@@ -117,9 +109,16 @@
                             }
                         }
                         unset($usernames);
+                        $token = self::generate_token($username);
+                        mail(
+                            $email,
+                            $this->lang["register_email_subject"],
+                            $this->lang["register_email_message"] . "https://" . $_SERVER["HTTP_HOST"] . "/activate?token=" . $token,
+                            "Content-Type: text/plain; charset=utf-8"
+                        );
                         $output = self::send_to_db(
                             "accounts",
-                            array($username, password_hash($password, PASSWORD_BCRYPT), 0, "", "", "", 0)
+                            array($username, $email, $token, password_hash($password, PASSWORD_BCRYPT), 0, "", "", "", 0)
                         );
                         if( $output ) {
                             return $this->lang["register_success"];
@@ -144,17 +143,52 @@
                     <a href='login'><button>Zaloguj się</button></a>
                 ";
             } else {
-                if( $acc->verify_credientials($_SESSION["username"], $_SESSION["password"]) ) {
+                if( self::verify_credientials($_SESSION["username"], $_SESSION["password"]) ) {
                     $users = self::get_from_db("accounts");
                     foreach($users as $user) {
                         if( $user["username"] == $_SESSION["username"] ) {
+                            echo "$user[username]";
+                            if( $user["is_member"] ) {
+                                echo "<img src='img/tick.png' title='".$this->lang["cdfm_member"]."' class='ismember'/>";
+                            }
+                            echo " | <a href='settings'>Ustawienia</a> | <a href='logout'>Wyloguj</a>";
                             if( $user["avatar"] ) {
                                 echo "<img src='$user[avatar]' alt='$user[username]' class='avatar'/>";
-                                return;
+                            } else {
+                                echo "<img src='users/default.png' alt='$user[username]' class='avatar'/>";
                             }
+                            return;
                         }
                     }
                 }
+            }
+        }
+
+        public function log_in($username, $password, $goto="listen") {
+            // Checks if both username and password are proper,
+            // stores credentials in $_SESSION for later verifications
+            // and logs in.
+            if( !isset($_SESSION["username"]) ) {
+                if( self::verify_credientials($username, $password) ) {
+                    $accounts = self::get_from_db("accounts");
+                    foreach($accounts as $account) {
+                        if( $account["username"] == $username ) {
+                            if( $account["emailnoactive"] ) {
+                                return "<p>".$this->lang["login_account_not_active"]."</p>";
+                            }
+                            if( $account["is_banned"] ) {
+                                return "<p>".$this->lang["login_banned"]."</p>";
+                            }
+                        }
+                    }
+                    $_SESSION["username"] = $username;
+                    $_SESSION["password"] = $password;
+                    return "<script type='text/javascript'>window.location = '$goto';</script>";
+                } else {
+                    return "<p>".$this->lang["login_wrong_password"]."</p>";
+                }
+            } else {
+                return "<p>".$this->lang["login_already_logged_in"]."</p>";
             }
         }
 

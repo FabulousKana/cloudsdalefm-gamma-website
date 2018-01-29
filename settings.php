@@ -4,7 +4,7 @@
         <meta charset="utf-8"/>
         <meta name="author" content="CloudsdaleFM Developers"/>
         <title>CloudsdaleFM Gamma - Najlepsze kucykowe hity każdego dnia!</title>
-        <meta property="og:title" content="Słuchaj radia CloudsdaleFM!"/>
+        <meta property="og:title" content="Ustawienia konta"/>
         <meta property="og:site_name" content="CloudsdaleFM Gamma - Najlepsze kucykowe hity każdego dnia!"/>
         <meta name="description" content="Największe i najbardziej kucykowe radio w Polsce. Słuchaj już teraz w przeglądarce całkowicie za darmo i bez reklam najgorętszych hitów kucykowego fandomu!"/>
         <meta property="og:description" content="Największe i najbardziej kucykowe radio w Polsce. Słuchaj już teraz w przeglądarce całkowicie za darmo i bez reklam najgorętszych hitów kucykowego fandomu!"/>
@@ -38,16 +38,26 @@
 
         <div id="sky">
             <div class="skyhalf">
-                <div id="leftcontent">
-                    <div id="player"></div>
-                    <span class="player-info">
-                        Chcesz słuchać we własnym odtwarzaczu?
-                        <a href="download/cloudsdalefm.m3u">Pobierz m3u!</a><br/>
-                        <a href="https://twitter.com/cloudsdalefm" target="_blank"><img src="img/social/twitter.png" alt="Twitter"/></a>
-                        <a href="https://www.facebook.com/cloudsdaleFM.net/" target="_blank"><img src="img/social/facebook.png" alt="Facebook"/></a>
-                        <a href="https://www.youtube.com/channel/UCkCVf7cZ44QUyln8pqKLGwg" target="_blank"><img src="img/social/youtube.png" alt="YouTube"/></a>
-                        <a href="https://discord.gg/cCa4xBk" target="_blank"><img src="img/social/discord.png" alt="Discord"/></a>
-                    </span>
+                <div id="accountsettings">
+                    <?php
+                        if( !$_SESSION["username"] ) {
+                            echo "<script type='text/javascript'>window.location = 'https://$_SERVER[HTTP_HOST]/login?goto=settings';</script>";
+                        }
+                        $accounts = $acc->get_from_db("accounts");
+                        foreach($accounts as $account) {
+                            if( $account["username"] == $_SESSION["username"] ) {
+                                if( $account["is_member"] ) { $tick = "<img src='img/tick.png' style='width:15px;height:auto;'/>"; }
+                                echo "
+                                    <img src='$account[avatar]' class='avatar'/>
+                                    <h3>$account[username]</h3>".$tick.
+                                    "<p>$account[email]</p>
+                                    <p>$account[location]</p>
+                                    <p>$account[description]</p>
+                                ";
+                                break;
+                            }
+                        }
+                    ?>
                 </div>
             </div>
         </div>
